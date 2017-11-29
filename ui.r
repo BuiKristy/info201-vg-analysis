@@ -6,7 +6,6 @@
 library(shiny)
 library(plotly)
 
-
 my.ui <- navbarPage(
   
   # title of application
@@ -26,11 +25,10 @@ my.ui <- navbarPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-        plotOutput("YearRangeOfSalesPlot")
+        plotlyOutput("YearRangeOfSalesPlot", height = 700)
       )
     )
   )
-  
 )
 
 shinyUI(my.ui)

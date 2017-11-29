@@ -3,6 +3,9 @@ library(HSAUR)
 library(dplyr)
 library(ggplot2)
 
+#install.packages("ggsci")
+library(ggsci)
+
 source("scripts/chart1.R")
 
 # Define data based on input and turn into output plot using this server function

@@ -16,7 +16,7 @@ raw.data <- filter(raw.data, as.numeric(as.character(Year)) < 2017)
 # Plot the YearRangeOfSalesPlot Plot which generates a graph that looks at percentages of sales 
 # based on genre in a given time period
 YearRangeOfSalesPlot = function(input, output) {
-  output$YearRangeOfSalesPlot <- renderPlot({
+  output$YearRangeOfSalesPlot <- renderPlotly({
     # filters the data based on given years
     chart.data <- raw.data %>% filter(as.numeric(input$years[1]) <= as.numeric(as.character(Year)) &
                                         as.numeric(as.character(Year)) < as.numeric(input$years[2]))
@@ -25,6 +25,13 @@ YearRangeOfSalesPlot = function(input, output) {
     summed.data <- chart.data %>% group_by(Year, Genre) %>% summarize(Sum = sum(Global_Sales)) %>% mutate(Percentage = Sum / sum(Sum))
     
     # Generate the line plot
-    ggplot(summed.data, aes(x=Year, y=Percentage, group=Genre)) + geom_point(aes(color=Genre)) + geom_line(aes(color=Genre))
+    p <- ggplot(summed.data, aes(x=Year, y=Percentage, group=Genre)) + 
+      geom_point(aes(color=Genre)) + 
+      geom_line(aes(color=Genre)) +
+      scale_color_d3(palette = "category20") + 
+      theme(axis.text = element_text(size = rel(0.7), angle = 30), plot.margin = margin(0, 0, 100, 10, unit = "pt"))
+    
+    ggplotly(p, tooltip = c("x", "y", "group"))
+    #plot_ly(summed.data, x = ~Year, y = ~Percentage, type='scatter', mode = 'lines+markers', split = ~Genre)
   })
 }
