@@ -1,0 +1,12 @@
+name: info201-vg-analysis
+title: info201-vg-analysis
+username:
+account: buikristy
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 241397
+bundleId: 1103106
+url: https://buikristy.shinyapps.io/info201-vg-analysis/
+when: 1511929373.77507
+asMultiple: FALSE
+asStatic: FALSE
