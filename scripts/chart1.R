@@ -1,37 +1,51 @@
-# Kristy Bui
+# Carolyn Lee
 # Section AC
-# 11/19/17
-# This chart1.R file creates a graph that displays the percentage of sales for each genre of video game
-# in a given year range. 
+# 12/02/17
+# This chart1.R file creates a bar graph that displays the total number of video game sales (in millions of copies) by 
+# each publisher in a given year and region.
 
-raw.data <- read.csv("data/vgsales.csv")
-
-# Change N/A years to NA in order to remove them
-raw.data$Year[raw.data$Year == "N/A"] <- NA
-raw.data <- raw.data[complete.cases(raw.data[,"Year"]),]
-
-# Games shouldn't be accounted for during or after this year
-raw.data <- filter(raw.data, as.numeric(as.character(Year)) < 2017) 
-
-# Plot the YearRangeOfSalesPlot Plot which generates a graph that looks at percentages of sales 
-# based on genre in a given time period
-YearRangeOfSalesPlot = function(input, output) {
-  output$YearRangeOfSalesPlot <- renderPlotly({
-    # filters the data based on given years
-    chart.data <- raw.data %>% filter(as.numeric(input$years[1]) <= as.numeric(as.character(Year)) &
-                                        as.numeric(as.character(Year)) < as.numeric(input$years[2]))
+RegionVsYear <- function(input, output) {
+  #sorts data by year and publisher and sums up each publisher's sales for each given year
+  publisher.data <- raw.data %>%
+    group_by(Year, Publisher) %>% 
+    summarise(
+      sum.global = sum(Global_Sales),
+      sum.NA = sum(NA_Sales),
+      sum.EU = sum(EU_Sales),
+      sum.JP = sum(JP_Sales)
+    )
+  
+   output$RegionVsYear <- renderPlot({
+     #selects data for a particular region based on user's input selection
+    if(input$selected_region == "North America") {
+      selected.data <- publisher.data %>% select(Year, Publisher, sum.NA)
+    } else if (input$selected_region == "Europe") {
+      selected.data <- publisher.data %>% select(Year, Publisher, sum.EU)
+    }  else if (input$selected_region == "Japan") {
+      selected.data <- publisher.data %>% select(Year, Publisher, sum.JP)
+    }  else {
+      selected.data <- publisher.data %>% select(Year, Publisher, sum.global)
+    } 
     
-    # this data summarizes the number of all sales in a given year
-    summed.data <- chart.data %>% group_by(Year, Genre) %>% summarize(Sum = sum(Global_Sales)) %>% mutate(Percentage = Sum / sum(Sum))
+     #selects data for a particular year based on user's input selection
+    selected.data <- selected.data %>% filter(Year == input$selected_year)
     
-    # Generate the line plot
-    p <- ggplot(summed.data, aes(x=Year, y=Percentage, group=Genre)) + 
-      geom_point(aes(color=Genre)) + 
-      geom_line(aes(color=Genre)) +
-      scale_color_d3(palette = "category20") + 
-      theme(axis.text = element_text(size = rel(0.7), angle = 30), plot.margin = margin(0, 0, 100, 10, unit = "pt"))
+
+    #creates the bar graph from the selected data
+    plot1 <- ggplot(data = selected.data, aes(x=Publisher, y=selected.data[,3], fill=Publisher)) + 
+      geom_bar(stat = "identity") + 
+      theme(legend.position="none", axis.text.x = element_text(angle = 60, hjust = 1)) +
+      ylab("Sales in millions of copies") + ggtitle(paste0("Total Video Game Sales by Publisher (", 
+                                                           input$selected_region, ", ", input$selected_year, ")"))
     
-    ggplotly(p, tooltip = c("x", "y", "group"))
-    #plot_ly(summed.data, x = ~Year, y = ~Percentage, type='scatter', mode = 'lines+markers', split = ~Genre)
+    
+    return(plot1)
+    
+    
   })
+
 }
+
+
+
+
