@@ -36,7 +36,7 @@ my.ui <- navbarPage(
       sidebarPanel(
         selectInput("selected_year", label = h3("Select a year"), 
                     choices = 1980:2016, 
-                    selected = 1980),
+                    selected = 2016),
         
         radioButtons("selected_region", label = h3("Select a region"), 
                     choices = c("North America", "Europe", "Japan", "Global"),
