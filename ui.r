@@ -87,7 +87,9 @@ my.ui <- navbarPage(
       sidebarPanel(
         # Input: Select a dataset ----
         selectInput("SelectGenre", "Genre:",
-                    choices = c(raw.data$Genre), selected = raw.data$Genre[1]),
+                    choices = c("Sports", "Platform", "Racing", "Role-Playing", 
+                                "Puzzle" , "Misc", "Shooter", "Action", "Simulation", 
+                                "Adventure", "Fighting", "Strategy"), selected = "Sports"),
         hr(),
         # Copy the line below to make a slider bar 
         selectInput("SelectLocation", "Region:",
