@@ -33,7 +33,7 @@ RegionVsYear <- function(input, output) {
       filter(Year == input$selected_year) %>% 
       arrange(desc(Publisher))
     
-
+    
     #creates the bar graph from the selected data
     plot1 <- ggplot(data = selected.data, aes(x=Publisher, y=selected.data[,3], fill=Publisher)) + 
       geom_bar(stat = "identity") + coord_flip() +
@@ -41,7 +41,7 @@ RegionVsYear <- function(input, output) {
       ylab("Sales in millions of copies") + ggtitle(paste0("Total Video Game Sales by Publisher (", 
                                                            input$selected_region, ", ", input$selected_year, ")"))
     
-    
+    print(typeof(selected.data[,3]))
     return(plot1)
     
     
