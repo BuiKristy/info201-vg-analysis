@@ -1,0 +1,12 @@
+name: info201-vg-analysis
+title: info201-vg-analysis
+username:
+account: smullapudi
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 244425
+bundleId: 1119101
+url: https://smullapudi.shinyapps.io/info201-vg-analysis/
+when: 1512579513.7356
+asMultiple: FALSE
+asStatic: FALSE
