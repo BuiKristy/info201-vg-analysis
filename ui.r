@@ -70,9 +70,6 @@ my.ui <- navbarPage(
                     selected = "North America")
       ),
       
-
-    
-      
       # Show a plot of the generated distribution
       mainPanel(
         plotOutput("RegionVsYear", width = 1300)
@@ -83,28 +80,21 @@ my.ui <- navbarPage(
   tabPanel(
     "Top 10 Selling Video Games- Per Genre and Region",
     sidebarLayout(
-      # Sidebar panel for inputs ----
       sidebarPanel(
-        # Input: Select a dataset ----
         selectInput("SelectGenre", "Genre:",
                     choices = c("Sports", "Platform", "Racing", "Role-Playing", 
                                 "Puzzle" , "Misc", "Shooter", "Action", "Simulation", 
                                 "Adventure", "Fighting", "Strategy"), selected = "Sports"),
         hr(),
-        # Copy the line below to make a slider bar 
         selectInput("SelectLocation", "Region:",
                     choices = c("North America", "Europe", "Japan", "Other", "Global"),selected = "Global")
       ),
-      # Main panel for displaying outputs ----
+      
       mainPanel(
-        # Output: Table summarizing the values entered ----
+        # Output: Table summarizing the values entered
         tableOutput("table")
       )
     )
   )
 )
-  
-  
-
-
 shinyUI(my.ui)
