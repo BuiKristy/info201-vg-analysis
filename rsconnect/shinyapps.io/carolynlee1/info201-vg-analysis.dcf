@@ -5,8 +5,8 @@ account: carolynlee1
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 243215
-bundleId: 1111367
+bundleId: 1119489
 url: https://carolynlee1.shinyapps.io/info201-vg-analysis/
-when: 1512267359.0089
+when: 1512590585.99005
 asMultiple: FALSE
 asStatic: FALSE

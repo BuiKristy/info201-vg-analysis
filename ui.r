@@ -48,7 +48,7 @@ my.ui <- navbarPage(
       
       # Show a plot of the generated distribution
       mainPanel(
-        plotOutput("RegionVsYear", width = 1300)
+        plotOutput("RegionVsYear", height = 1500)
       )
     )
   ) 
