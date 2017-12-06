@@ -28,9 +28,9 @@ my.ui <- navbarPage(
            They may want to know which video game companies or genres have done better than other over the years, 
            which platform was used the most to play the games, or which part of the world did better in sales depending on the game."),
         p(strong("The three specific questions we decided to do analysis on and show visually were:")),
-        p(em("What are all the details of the video game given a particular rank?
-           What are the percent of sales for each genre of video game in a given year?
-           What are the total number of video game sales by each publisher in the given year and region?")),
+        p(em("What are the percent of sales for each genre of video game in a given year?
+           What are the total number of video game sales by each publisher in the given year and region?
+             What are the top 10 selling video games given the genre and the region?")),
         br("For each question, there are tables and graphs represeting the analysis in the proceeding tabs.")
         
       )
@@ -78,7 +78,28 @@ my.ui <- navbarPage(
         plotOutput("RegionVsYear", width = 1300)
       )
     )
-  ) 
+  ),
+  
+  tabPanel(
+    "Top 10 Selling Video Games- Per Genre and Region",
+    sidebarLayout(
+      # Sidebar panel for inputs ----
+      sidebarPanel(
+        # Input: Select a dataset ----
+        selectInput("SelectGenre", "Genre:",
+                    choices = c(raw.data$Genre), selected = raw.data$Genre[1]),
+        hr(),
+        # Copy the line below to make a slider bar 
+        selectInput("SelectLocation", "Region:",
+                    choices = c("North America", "Europe", "Japan", "Other", "Global"),selected = "Global")
+      ),
+      # Main panel for displaying outputs ----
+      mainPanel(
+        # Output: Table summarizing the values entered ----
+        tableOutput("table")
+      )
+    )
+  )
 )
   
   
