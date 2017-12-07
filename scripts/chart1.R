@@ -15,8 +15,8 @@ RegionVsYear <- function(input, output) {
       sum.JP = sum(JP_Sales)
     )
   
-   output$RegionVsYear <- renderPlot({
-     #selects data for a particular region based on user's input selection
+  output$RegionVsYear <- renderPlot({
+    #selects data for a particular region based on user's input selection
     if(input$selected_region == "North America") {
       selected.data <- publisher.data %>% select(Year, Publisher, sum.NA)
     } else if (input$selected_region == "Europe") {
@@ -27,14 +27,28 @@ RegionVsYear <- function(input, output) {
       selected.data <- publisher.data %>% select(Year, Publisher, sum.global)
     } 
     
+<<<<<<< HEAD
      #selects data for a particular year based on user's input selection
     selected.data <- selected.data %>% filter(Year == input$selected_year)
+=======
+    #selects data for a particular year based on user's input selection
+    selected.data <- selected.data %>% 
+      filter(Year == input$selected_year) %>% 
+      arrange(desc(Publisher))
+    
+>>>>>>> 30abed8de2df7d62ccd276cea4fbaf749ba6611b
     
 
     #creates the bar graph from the selected data
+<<<<<<< HEAD
     plot1 <- ggplot(data = selected.data, aes(x=Publisher, y=selected.data[,3], fill=Publisher)) + 
       geom_bar(stat = "identity") + 
       theme(legend.position="none", axis.text.x = element_text(angle = 60, hjust = 1)) +
+=======
+    plot1 <- ggplot(data = selected.data, aes(x=Publisher, y=unlist(selected.data[,3]), fill=Publisher)) + 
+      geom_bar(stat = "identity") + coord_flip() +
+      theme(legend.position="none") +
+>>>>>>> 30abed8de2df7d62ccd276cea4fbaf749ba6611b
       ylab("Sales in millions of copies") + ggtitle(paste0("Total Video Game Sales by Publisher (", 
                                                            input$selected_region, ", ", input$selected_year, ")"))
     
@@ -43,7 +57,7 @@ RegionVsYear <- function(input, output) {
     
     
   })
-
+  
 }
 
 
