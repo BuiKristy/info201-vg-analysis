@@ -93,6 +93,7 @@ my.ui <- navbarPage(
       
       mainPanel(
         # Output: Table summarizing the values entered
+        hr("Below the sales column is represented in millions."),
         tableOutput("table")
       )
     )
