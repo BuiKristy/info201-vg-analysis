@@ -13,8 +13,7 @@ RegionVsYear <- function(input, output) {
       sum.NA = sum(NA_Sales),
       sum.EU = sum(EU_Sales),
       sum.JP = sum(JP_Sales)
-    ) %>% 
-    filter(Publisher != "N/A")
+    )
   
    output$RegionVsYear <- renderPlot({
      #selects data for a particular region based on user's input selection
@@ -29,19 +28,17 @@ RegionVsYear <- function(input, output) {
     } 
     
      #selects data for a particular year based on user's input selection
-    selected.data <- selected.data %>% 
-      filter(Year == input$selected_year) %>% 
-      arrange(desc(Publisher))
+    selected.data <- selected.data %>% filter(Year == input$selected_year)
     
-    
+
     #creates the bar graph from the selected data
     plot1 <- ggplot(data = selected.data, aes(x=Publisher, y=selected.data[,3], fill=Publisher)) + 
-      geom_bar(stat = "identity") + coord_flip() +
-      theme(legend.position="none") +
+      geom_bar(stat = "identity") + 
+      theme(legend.position="none", axis.text.x = element_text(angle = 60, hjust = 1)) +
       ylab("Sales in millions of copies") + ggtitle(paste0("Total Video Game Sales by Publisher (", 
                                                            input$selected_region, ", ", input$selected_year, ")"))
     
-    print(typeof(selected.data[,3]))
+    
     return(plot1)
     
     
