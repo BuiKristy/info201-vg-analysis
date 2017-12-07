@@ -27,6 +27,7 @@ my.ui <- navbarPage(
            But for our data we are focusing on video game reviewers. 
            They may want to know which video game companies or genres have done better than other over the years, 
            which platform was used the most to play the games, or which part of the world did better in sales depending on the game."),
+        hr(),
         p(strong("The three specific questions we decided to do analysis on and show visually were:")),
         p(em("What are the percent of sales for each genre of video game in a given year?
            What are the total number of video game sales by each publisher in the given year and region?

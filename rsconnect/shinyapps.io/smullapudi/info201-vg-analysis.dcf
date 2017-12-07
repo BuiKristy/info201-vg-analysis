@@ -5,8 +5,8 @@ account: smullapudi
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 244425
-bundleId: 1119101
+bundleId: 1120326
 url: https://smullapudi.shinyapps.io/info201-vg-analysis/
-when: 1512579513.7356
+when: 1512626602.56528
 asMultiple: FALSE
 asStatic: FALSE
