@@ -9,7 +9,7 @@
 GenrePlusRegion <- function(input, output)
 {
   dt_filter <- reactive({
-    #If chosen North America, give the rank, name, platform (genre), publisher, and sales for the 10 video games
+    #If chosen North America, give the rank, name, platform, publisher, and sales for the 10 video games
     if(input$SelectLocation=="North America"){  
       raw.data %>%
         select(Rank,Name,Platform,Publisher,NA_Sales) %>% 
