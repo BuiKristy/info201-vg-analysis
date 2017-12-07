@@ -17,7 +17,7 @@ my.ui <- navbarPage(
     "Summary of our Analysis",
     sidebarLayout(
       sidebarPanel(
-        imageOutput("vgImage.jpg")
+        imageOutput("image")
         
       ),
       mainPanel(
