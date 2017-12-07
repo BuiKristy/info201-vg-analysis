@@ -5,19 +5,20 @@
 # each publisher in a given year and region.
 
 RegionVsYear <- function(input, output) {
-  #sorts data by year and publisher and sums up each publisher's sales for each given year
-  publisher.data <- raw.data %>%
-    group_by(Year, Publisher) %>% 
-    summarise(
-      sum.global = sum(Global_Sales),
-      sum.NA = sum(NA_Sales),
-      sum.EU = sum(EU_Sales),
-      sum.JP = sum(JP_Sales)
-    ) %>% 
-    filter(Publisher != "N/A")
   
-   output$RegionVsYear <- renderPlot({
-     #selects data for a particular region based on user's input selection
+  output$RegionVsYear <- renderPlot({
+    #sorts data by year and publisher and sums up each publisher's sales for each given year
+    publisher.data <- raw.data %>%
+      group_by(Year, Publisher) %>% 
+      summarise(
+        sum.global = sum(Global_Sales),
+        sum.NA = sum(NA_Sales),
+        sum.EU = sum(EU_Sales),
+        sum.JP = sum(JP_Sales)
+      ) %>% 
+      filter(Publisher != "N/A")
+    
+    #selects data for a particular region based on user's input selection
     if(input$selected_region == "North America") {
       selected.data <- publisher.data %>% select(Year, Publisher, sum.NA)
     } else if (input$selected_region == "Europe") {
@@ -28,25 +29,24 @@ RegionVsYear <- function(input, output) {
       selected.data <- publisher.data %>% select(Year, Publisher, sum.global)
     } 
     
-     #selects data for a particular year based on user's input selection
+    #selects data for a particular year based on user's input selection
     selected.data <- selected.data %>% 
       filter(Year == input$selected_year) %>% 
       arrange(desc(Publisher))
     
     
     #creates the bar graph from the selected data
-    plot1 <- ggplot(data = selected.data, aes(x=Publisher, y=selected.data[,3], fill=Publisher)) + 
+    ggplot(data = selected.data, aes(x=Publisher, y=selected.data[,3], fill=Publisher)) + 
       geom_bar(stat = "identity") + coord_flip() +
       theme(legend.position="none") +
       ylab("Sales in millions of copies") + ggtitle(paste0("Total Video Game Sales by Publisher (", 
                                                            input$selected_region, ", ", input$selected_year, ")"))
     
-    print(typeof(selected.data[,3]))
-    return(plot1)
     
+
     
   })
-
+  
 }
 
 
